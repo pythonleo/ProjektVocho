@@ -1,6 +1,0 @@
-name=New Geping UTAU Database
-image=avatar.jpg
-author=Š‹•½
-web=http://utau.vocalover.com/
-
-Version:1.0
