@@ -10,57 +10,9 @@ import numpy
 import scipy.io.wavfile
 
 
-filter_low = 430
-voicebank = "geping"
+filter_low = 430 # Not sure of its purpose, mentioned in utau_output.txt
+voicebank = "lty"
 filename = "a.wav"
-
-""" W/o slicing, bad
-def freq(fname):
-    freq_list = []
-    if os.name == "nt":
-        s = subprocess.run("aubio-win/bin/aubiopitch.exe %s" % fname, capture_output=True)
-        output = s.stdout.decode().split('\n')
-        for line in output:
-            if line:
-                freq_list.append(round(float(line.split()[1]), 2))
-        return statistics.median(freq_list)
-    else:
-        return 0
-
-
-def resample_audio(fname: str, target_len, target_note):
-    y, sr = librosa.load(fname, mono=True)
-    src_len = librosa.get_duration(y, sr)
-    rate = target_len / src_len
-    avg_freq = freq(fname)
-    print(avg_freq)
-    avg_note = int(librosa.hz_to_midi(avg_freq))   # In MIDI for easy semitones
-    print(avg_note, target_note)
-    print(librosa.midi_to_note(avg_note), librosa.midi_to_note((target_note)))
-    pitch_rate = target_note - avg_note
-    target = librosa.effects.time_stretch(y, rate)
-    target = librosa.effects.pitch_shift(y, sr, pitch_rate / 2)
-    return target, sr
-"""
-
-""" Done w/ rubberband, not much better
-def resample_audio(fname: str, target_len, target_note):
-    target_hz = librosa.midi_to_hz(target_note)
-    freq_rate = target_hz / freq("voice/%s/%s" % (voicebank, fname))
-    cache_fname = "cache/%s-%s-%d-%d.wav" % \
-                  (voicebank, fname, target_note, target_len)
-    if os.name == "nt":
-        subprocess.run("rubberband-win/rubberband.exe -c 5 -F -D %f -f %f %s %s" % \
-                       (target_len, freq_rate, "voice/%s/%s" % \
-                        (voicebank, fname), cache_fname))
-    else:
-        return
-"""
-
-
-def trim(start, end):
-    # TODO: write some ffmpeg garbage
-    pass
 
 
 def freq(fname):
@@ -68,13 +20,57 @@ def freq(fname):
     freq_list = []
     aubio_path = ""
     if os.name == "nt":
-        aubio_path = "aubio-win/bin/aubiopitch.exe"
+        aubio_path = "tools/aubio/aubiopitch.exe"
     else:
         aubio_path = "aubiopitch"
-    s = subprocess.run("%s %s" % (aubio_path, fname), capture_output=True)
+    s = subprocess.run("%s \"%s\" -H 1024 -u midi" % (aubio_path, fname), \
+                       capture_output=True)
     output = s.stdout.decode().split('\n')
     for i in range(1, len(output)):
         if output[i]:
-            time_list.append([output[i - 1].split()[0], output[i].split()[0]])
+            time_list.append(output[i].split()[0])
             freq_list.append(round(float(output[i].split()[1]), 2))
     return time_list, freq_list
+
+
+def resample_audio(fname, time_rate, target_pitch):
+    # Cut the audio into small pieces to essentially
+    # "flatten" out the waveform
+    ffmpeg_path = ""
+    if os.name == "nt":
+        ffmpeg_path = "powershell.exe tools/ffmpeg/ffmpeg.exe"
+    else:
+        ffmpeg_path = "ffmpeg"
+    time_list, freq_list = freq(fname)
+    time_list = time_list[1:]
+    freq_list = freq_list[1:]
+    time_strs = ",".join(time_list)
+    cache_name = "cache/{0}_%d.wav".format(fname)
+    cmd = "%s -i %s -f segment -segment_times %s -c copy \"%s\"" % \
+          (ffmpeg_path, fname, time_strs, cache_name)
+    s = subprocess.run(cmd, capture_output=True)
+
+    # Process each segment of the audio, applying a universal
+    # `time_rate` and a different `pitch_rate`.
+    # `txt_fname` tells ffmpeg which files to concat after
+    # individual tuning is over
+    txt_fname = "cache/%s_%s_%d.txt" % (voicebank, fname, target_pitch)
+    target_fname = "cache/%s_%s_%d.wav" % (voicebank, fname, target_pitch)
+    f = open(txt_fname, "w")
+    y, sr = librosa.load(fname, sr=44100, mono=True)
+    for i in range(len(freq_list)):
+        cache_name = "cache/%s_%d.wav" % (fname, i)
+        try: y, sr = librosa.load(cache_name, sr=44100, mono=True)
+        except: break
+        pitch_rate = target_pitch - freq_list[1]
+        target = librosa.effects.pitch_shift(y, sr, pitch_rate / 2)
+        cache_name = "%s_%s_%d_%d.wav" % \
+                    (voicebank, fname, target_pitch, i)
+        soundfile.write("cache/%s" % cache_name, target, sr)
+        f.write("file '%s'\n" % cache_name)
+    cmd = "%s -f concat -safe 0 -i %s -c copy %s" % \
+          (ffmpeg_path, txt_fname, target_fname)
+    print(cmd)
+    s = subprocess.call(cmd)
+    y, sr = librosa.load(target_fname)
+    librosa.effects.time_stretch(y, rate)
