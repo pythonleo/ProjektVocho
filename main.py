@@ -1,3 +1,5 @@
+import engine
+
 import sys
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QApplication
@@ -12,7 +14,6 @@ if __name__ == "__main__":
     if not ui_file.open(QIODevice.ReadOnly):
         print(f"Cannot open {ui_file_name}: {ui_file.errorString()}")
         sys.exit(-1)
-
     loader = QUiLoader()
     window = loader.load(ui_file)
     ui_file.close()

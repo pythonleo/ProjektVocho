@@ -1,1 +1,0 @@
-ffmpeg -i somefile.wav -f segment -segment_time 3 -c copy out%03d.wav
