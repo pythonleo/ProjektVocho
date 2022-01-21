@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>795</width>
-    <height>600</height>
+    <width>801</width>
+    <height>588</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,6 +35,9 @@
     <property name="tabShape">
      <enum>QTabWidget::Triangular</enum>
     </property>
+    <property name="currentIndex">
+     <number>1</number>
+    </property>
     <property name="tabsClosable">
      <bool>false</bool>
     </property>
@@ -56,6 +59,55 @@
      <attribute name="title">
       <string>Piano Roll</string>
      </attribute>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>771</width>
+        <height>551</height>
+       </rect>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>769</width>
+         <height>549</height>
+        </rect>
+       </property>
+       <widget class="QLabel" name="label">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>-1040</y>
+          <width>181</width>
+          <height>1681</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/piano_roll/piano_roll.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QScrollBar" name="verticalScrollBar">
+        <property name="geometry">
+         <rect>
+          <x>750</x>
+          <y>0</y>
+          <width>16</width>
+          <height>541</height>
+         </rect>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </widget>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -64,7 +116,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>795</width>
+     <width>801</width>
      <height>22</height>
     </rect>
    </property>
@@ -121,6 +173,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="res/piano_roll.qrc"/>
+ </resources>
  <connections/>
 </ui>
