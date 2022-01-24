@@ -15,7 +15,7 @@ psg.theme("Default1")
 
 
 def _register(path: str):
-    """Register a voice library. Alert the user on failure.
+    """Register a voice library. Alert the user on failure. Auxiliary function.
 
     :param path: path to the voice bank (e.g. /path/to/voice/geping)
     :return: normcase()'d canonical path on success, empty string on failure
@@ -32,12 +32,21 @@ def _register(path: str):
 
 
 def register(path: str):
+    """Adds voice bank directory to voiebanks.txt
+
+    :param path: path to the voice bank
+    :return: void
+    """
     f = open("voicebanks.txt", "a+")
     f.write(path + "\n")
     f.close()
 
 
 def cleanup():
+    """Cleans up voicebanks.txt by removing invalid/repetitive directories.
+
+    :return: void
+    """
     f = open("voicebanks.txt", "r+")
     voicebank_list = []
     for item in f.readlines():
@@ -47,6 +56,3 @@ def cleanup():
     f.write("".join(set(sorted(voicebank_list))))
     f.truncate()
     f.close()
-
-
-cleanup()

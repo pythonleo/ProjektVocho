@@ -16,14 +16,16 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QMainWindow, QMenu, QMenuBar,
-    QSizePolicy, QStatusBar, QTabWidget, QWidget)
+from PySide6.QtWidgets import (QApplication, QLabel, QMainWindow, QMenu,
+    QMenuBar, QScrollArea, QScrollBar, QSizePolicy,
+    QStatusBar, QTabWidget, QWidget)
+import piano_roll_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(795, 600)
+        MainWindow.resize(801, 588)
         MainWindow.setDocumentMode(False)
         self.action_New_Vocho_Projekt = QAction(MainWindow)
         self.action_New_Vocho_Projekt.setObjectName(u"action_New_Vocho_Projekt")
@@ -54,11 +56,26 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QWidget()
         self.tab_2.setObjectName(u"tab_2")
+        self.scrollArea = QScrollArea(self.tab_2)
+        self.scrollArea.setObjectName(u"scrollArea")
+        self.scrollArea.setGeometry(QRect(0, 0, 771, 551))
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollAreaWidgetContents = QWidget()
+        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 769, 549))
+        self.label = QLabel(self.scrollAreaWidgetContents)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(0, -1040, 181, 1681))
+        self.verticalScrollBar = QScrollBar(self.scrollAreaWidgetContents)
+        self.verticalScrollBar.setObjectName(u"verticalScrollBar")
+        self.verticalScrollBar.setGeometry(QRect(750, 0, 16, 541))
+        self.verticalScrollBar.setOrientation(Qt.Vertical)
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.tabWidget.addTab(self.tab_2, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 795, 22))
+        self.menubar.setGeometry(QRect(0, 0, 801, 22))
         self.menu_File = QMenu(self.menubar)
         self.menu_File.setObjectName(u"menu_File")
         MainWindow.setMenuBar(self.menubar)
@@ -79,6 +96,9 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
+        self.tabWidget.setCurrentIndex(1)
+
+
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
 
@@ -98,6 +118,7 @@ class Ui_MainWindow(object):
         self.tab.setToolTip(QCoreApplication.translate("MainWindow", u"Piano roll window", None))
 #endif // QT_CONFIG(tooltip)
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Track Editor", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"<html><head><head/><body><p><img src=\":/piano_roll/piano_roll.png\"/></p></body></html>", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"Piano Roll", None))
         self.menu_File.setTitle(QCoreApplication.translate("MainWindow", u"&File", None))
     # retranslateUi
