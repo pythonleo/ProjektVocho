@@ -32,7 +32,7 @@ def _register(path: str):
 
 
 def register(path: str):
-    """Adds voice bank directory to voiebanks.txt
+    """Add voice bank directory to voiebanks.txt
 
     :param path: path to the voice bank
     :return: void
@@ -43,7 +43,7 @@ def register(path: str):
 
 
 def cleanup():
-    """Cleans up voicebanks.txt by removing invalid/repetitive directories.
+    """Clean up voicebanks.txt by removing invalid/repetitive directories.
 
     :return: void
     """
@@ -56,3 +56,16 @@ def cleanup():
     f.write("".join(set(sorted(voicebank_list))))
     f.truncate()
     f.close()
+
+
+def resample(filename, target_time: float, target_pitch: int, **kwargs):
+    """Wrapper for resampler.resample() and resampler.exe to make things clean
+
+    :param filename: filename of the base audio file
+    :param target_time: target time in seconds (w/o BPM calculations)
+    :param target_pitch: target pitch in MIDI number
+    :param kwargs: additional parameters, in a both UTAU- and VOCALOID-
+                   compatible format; passed to resampler.exe in mode 1
+    :return: void, but outputs audio file in a cache folder
+    """
+    pass
