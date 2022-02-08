@@ -59,7 +59,7 @@ def cleanup():
 
 
 def resample(filename, target_time: float, target_pitch: int, **kwargs):
-    """Wrapper for resampler.resample() and resampler.exe to make things clean
+    """Wrapper for psola and resampler.exe to make things clean
 
     :param filename: filename of the base audio file
     :param target_time: target time in seconds (w/o BPM calculations)

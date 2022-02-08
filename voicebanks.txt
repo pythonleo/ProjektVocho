@@ -1,2 +1,2 @@
-c:\dev\projektvocho\voice\geping
 c:\dev\projektvocho\voice\lty
+c:\dev\projektvocho\voice\geping

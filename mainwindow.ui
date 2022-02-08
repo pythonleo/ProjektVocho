@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>801</width>
-    <height>588</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,106 +17,93 @@
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTabWidget" name="tabWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>791</width>
-      <height>551</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Piano Roll&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="tabPosition">
-     <enum>QTabWidget::West</enum>
-    </property>
-    <property name="tabShape">
-     <enum>QTabWidget::Triangular</enum>
-    </property>
-    <property name="currentIndex">
-     <number>1</number>
-    </property>
-    <property name="tabsClosable">
-     <bool>false</bool>
-    </property>
-    <property name="movable">
-     <bool>true</bool>
-    </property>
-    <widget class="QWidget" name="tab">
-     <property name="toolTip">
-      <string>Piano roll window</string>
-     </property>
-     <property name="autoFillBackground">
-      <bool>true</bool>
-     </property>
-     <attribute name="title">
-      <string>Track Editor</string>
-     </attribute>
-    </widget>
-    <widget class="QWidget" name="tab_2">
-     <attribute name="title">
-      <string>Piano Roll</string>
-     </attribute>
-     <widget class="QScrollArea" name="scrollArea">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>771</width>
-        <height>551</height>
-       </rect>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="tabPosition">
+       <enum>QTabWidget::West</enum>
       </property>
-      <property name="widgetResizable">
-       <bool>true</bool>
+      <property name="tabShape">
+       <enum>QTabWidget::Triangular</enum>
       </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>769</width>
-         <height>549</height>
-        </rect>
-       </property>
-       <widget class="QLabel" name="label">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>-1040</y>
-          <width>181</width>
-          <height>1681</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/piano_roll/piano_roll.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QScrollBar" name="verticalScrollBar">
-        <property name="geometry">
-         <rect>
-          <x>750</x>
-          <y>0</y>
-          <width>16</width>
-          <height>541</height>
-         </rect>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-       </widget>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Piano Roll</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QScrollArea" name="scrollArea">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::RightToLeft</enum>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOn</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOn</enum>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>721</width>
+             <height>1698</height>
+            </rect>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="textFormat">
+               <enum>Qt::AutoText</enum>
+              </property>
+              <property name="pixmap">
+               <pixmap resource="res/piano_roll.qrc">:/piano_roll/piano_roll.png</pixmap>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QMdiArea" name="mdiArea"/>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Track Editor</string>
+       </attribute>
       </widget>
      </widget>
-    </widget>
-   </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>801</width>
+     <width>800</width>
      <height>22</height>
     </rect>
    </property>
