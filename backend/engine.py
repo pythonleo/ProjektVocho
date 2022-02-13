@@ -1,6 +1,6 @@
 """The heart of Projekt Vocho. Registers voice banks and manipulates them.
 
-The engine supports both a "native" synthesizer and comptibility for
+The engine supports both a "native" synthesizer and compatibility for
 "resampler.exe"s used by UTAU on Windows.
 """
 
@@ -37,7 +37,7 @@ def register(path: str):
     :param path: path to the voice bank
     :return: void
     """
-    f = open("voicebanks.txt", "a+")
+    f = open("../voicebanks.txt", "a+")
     f.write(path + "\n")
     f.close()
 
@@ -47,7 +47,7 @@ def cleanup():
 
     :return: void
     """
-    f = open("voicebanks.txt", "r+")
+    f = open("../voicebanks.txt", "r+")
     voicebank_list = []
     for item in f.readlines():
         item = item.rstrip()

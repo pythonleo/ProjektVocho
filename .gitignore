@@ -1,3 +1,2 @@
-/voice/
-/.idea/
-/__pycache__/
+/backend/voice/
+/backend/.idea/
